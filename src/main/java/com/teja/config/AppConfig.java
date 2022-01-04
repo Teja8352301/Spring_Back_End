@@ -19,10 +19,12 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.teja.interceptors.AuthInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -123,6 +125,11 @@ public class AppConfig implements WebMvcConfigurer{
 		txManager.setSessionFactory(sessionFactory);
 
 		return txManager;
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+	    registry.addInterceptor(new AuthInterceptor());
 	}
 	
 	
