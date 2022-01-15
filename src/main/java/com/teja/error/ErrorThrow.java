@@ -1,19 +1,18 @@
 package com.teja.error;
 
-public class ErrorThrow extends Throwable{
-	String message;
+public class ErrorThrow extends RuntimeException{
+
+	public ErrorThrow(String message, Throwable cause) {
+		super(message, cause);
+	}
 
 	public ErrorThrow(String message) {
-		super();
-		this.message = message;
+		super(message);
 	}
 
-	public String getMessage() {
-		return message;
+	public ErrorThrow(Throwable cause) {
+		super(cause);
 	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
+	
 	
 }

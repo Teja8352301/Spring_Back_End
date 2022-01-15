@@ -1,6 +1,10 @@
 package com.teja.config;
 
+import javax.servlet.Filter;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import com.teja.bodyparser.LoggingFilter;
 
 public class Dispatcher extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -18,5 +22,10 @@ public class Dispatcher extends AbstractAnnotationConfigDispatcherServletInitial
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
+	
+	 @Override
+	    protected Filter[] getServletFilters() {
+	        return new Filter[] { new LoggingFilter()};
+	    }
 
 }

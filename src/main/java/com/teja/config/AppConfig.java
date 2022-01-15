@@ -66,7 +66,7 @@ public class AppConfig implements WebMvcConfigurer{
 		// set database connection props
 		myDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/spring_latest?useSSL=false");
 		myDataSource.setUser("root");
-		myDataSource.setPassword("Teja@8352");
+		myDataSource.setPassword("abcd123456");
 		
 		// set connection pool props
 		myDataSource.setInitialPoolSize(5);
@@ -127,9 +127,14 @@ public class AppConfig implements WebMvcConfigurer{
 		return txManager;
 	}
 	
+	@Bean
+	public AuthInterceptor addInterceptorObject() {
+		return new AuthInterceptor();
+	}
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-	    registry.addInterceptor(new AuthInterceptor());
+	    registry.addInterceptor(addInterceptorObject());
 	}
 	
 	

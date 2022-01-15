@@ -1,6 +1,8 @@
 package com.teja.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,7 @@ import com.teja.service.UserService;
 
 @RestController
 @RequestMapping(value="/user")
+@CrossOrigin
 public class UserController {
 	
 	@Autowired
@@ -28,6 +31,12 @@ public class UserController {
 	public Object getUserByEmail(@RequestBody User user) {
 		Object object =  userService.getUserByEmailId(user.getEmail());
 		return object;
+	}
+	
+	@DeleteMapping(value="/email/{id}")
+	public Object deleteUserById(@PathVariable String id) {
+		return userService.deleteUserById(id);
+		
 	}
 
 }

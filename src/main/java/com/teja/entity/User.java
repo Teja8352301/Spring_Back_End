@@ -1,9 +1,15 @@
 package com.teja.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -35,6 +41,12 @@ public class User {
 	
 	@Column(name="password")
 	String password;
+	
+	@OneToMany(mappedBy="userId",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	List<Product> products;
+	
+	@OneToOne(cascade= {CascadeType.ALL},mappedBy="userId")
+	Cart cartId;
 
 	public User(String id, String email, String password) {
 		super();
@@ -75,6 +87,21 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
 	}
-	
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public String getCartId() {
+		return cartId.getCartId();
+	}
+
+	public void setCartId(Cart cartId) {
+		this.cartId = cartId;
+	}
 	
 }

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -42,6 +43,10 @@ public class Product {
 	
 	@Column(name="description")
 	String description = "";
+	
+	@ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.DETACH,CascadeType.PERSIST},fetch= FetchType.LAZY)
+	@JoinColumn(name="userId")
+	User userId;
 	
 
 
@@ -106,9 +111,12 @@ public class Product {
 				+ ", description=" + description + "]";
 	}
 
-	
-	
-	
-	
+	public String getUserId() {
+		return userId.getId();
+	}
+
+	public void setUserId(User userId) {
+		this.userId = userId;
+	}
 	
 }

@@ -27,4 +27,8 @@ public class UserService {
 		Object object = userDao.getUserByIndex();
 		return object;
 	}
+	
+	public Object deleteUserById(String id) {
+	return userDao.deleteUser(id);	
+	}
 }
