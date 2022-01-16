@@ -48,9 +48,22 @@ public class Product {
 	@JoinColumn(name="userId")
 	User userId;
 	
+//	@ManyToMany
+//	@JoinTable(name="cartitems",
+//	joinColumns=@JoinColumn(name="productId"),
+//	inverseJoinColumns= {@JoinColumn(name="userId"),@JoinColumn(name="cartId")})
+//	List<Cart> cart;
+	
 
+//	public List<Cart> getCart() {
+//		return cart;
+//	}
+//
+//	public void setCart(List<Cart> cart) {
+//		this.cart = cart;
+//	}
 
-//	Constructors
+	//	Constructors
 	public Product( String title, String imageUrl, int price, String description) {
 		super();
 		this.title = title;

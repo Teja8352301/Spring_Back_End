@@ -1,11 +1,15 @@
 package com.teja.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,6 +37,21 @@ public class Cart {
 	@OneToOne(cascade= {CascadeType.ALL})
 	@JoinColumn(name="userId")
 	User userId;
+	
+//	@ManyToMany
+//	@JoinTable(name="cartitems",
+//	joinColumns=@JoinColumn(name="cartId"),
+//	inverseJoinColumns= {@JoinColumn(name="userId"),@JoinColumn(name="productId")})
+//	List<Product> products;
+	
+
+//	public List<Product> getProducts() {
+//		return products;
+//	}
+//
+//	public void setProducts(List<Product> products) {
+//		this.products = products;
+//	}
 
 	public Cart(int i) {
 		super();
