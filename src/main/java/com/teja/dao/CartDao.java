@@ -35,28 +35,38 @@ public class CartDao {
 	}
 	
 	@Transactional
-	public Object addToCart(CartItems cartItem) {
+	public Object addToCart(CartItems cartItem,Cart cart) {
 	Session session = factory.getCurrentSession();
+	session.clear();
 	session.saveOrUpdate(cartItem);
-		return cartItem;
+	session.saveOrUpdate(cart);
+		return this.getCartItemsByCartIdAndUserId(cart.getCartId());
 	}
 	
 	@Transactional
-	public Object getCartItemByAllIds(String productId,String userId,String cartId) {
+	public Object getCartItemByAllIds(String productId,String cartId) {
 		Session session = factory.getCurrentSession();
-		String sqlString = String.format("SELECT * FROM cartitems WHERE productId='%s' and userId='%s' and cartId='%s'",productId,userId,cartId);
+		String sqlString = String.format("SELECT * FROM cartitems WHERE productId='%s' and cartId='%s'",productId,cartId);
 		NativeQuery<CartItems> query = session.createNativeQuery(sqlString, CartItems.class);
 		List<CartItems> cartItems = query.getResultList();
 		return cartItems;
 	}
 	
 	@Transactional
-	public Object getCartItemsByCartIdAndUserId(String userId,String cartId) {
+	public Object getCartItemsByCartIdAndUserId(String cartId) {
 		Session session = factory.getCurrentSession();
-		String sqlString = String.format("SELECT * FROM cartitems WHERE userId='%s' and cartId='%s'",userId,cartId);
+		String sqlString = String.format("SELECT * FROM cartitems WHERE cartId='%s'",cartId);
 		NativeQuery<CartItems> query = session.createNativeQuery(sqlString, CartItems.class);
 		List<CartItems> cartItems = query.getResultList();
 		return cartItems;
+	}
+	
+	@Transactional
+	public Object deleteItemFromCart(CartItems cartItem,Cart cart) {
+		Session session = factory.getCurrentSession();
+		session.saveOrUpdate(cart);
+		session.delete(cartItem);
+		return this.getCartItemsByCartIdAndUserId(cart.getCartId());
 	}
 	
 }

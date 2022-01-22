@@ -1,3 +1,5 @@
+
+
 package com.teja.service;
 
 import java.util.List;
@@ -29,34 +31,56 @@ public class CartService {
 	}
 	
 	public Object addToCartService(String productId,User user) {
-		Product product;
+		Product product = (Product) productService.getProductService(productId);
 		Cart cart = (Cart) getCartService(user.getCartId());
-		List list = (List) cartDao.getCartItemByAllIds(productId, user.getId(), user.getCartId());
+		List list = (List) cartDao.getCartItemByAllIds(productId, user.getCartId());
 		if(list.size()>0) {
 			CartItems cartItem = (CartItems) list.get(0);
-			cartItem.setCartId(cart.getCartId());
-			cartItem.setUserId(user.getId());
+			cartItem.setCartId(cart);
 			int updatedQuantity = cartItem.getQuantity()+1;
-			int updatedPrice = updatedQuantity * ((int)(cartItem.getPrice()/cartItem.getQuantity()));
+			int updatedPrice = updatedQuantity * product.getPrice();
 			cartItem.setQuantity(updatedQuantity);
 			cartItem.setPrice(updatedPrice);
-			return cartDao.addToCart(cartItem);
+			cart.setTotalPrice(cart.getTotalPrice()+product.getPrice());
+			return cartDao.addToCart(cartItem,cart);
 			
 		}
 		else {
 			CartItems cartItem = new CartItems();
-			cartItem.setCartId(cart.getCartId());
-			cartItem.setUserId(user.getId());
+			cartItem.setCartId(cart);
 			product = (Product) productService.getProductService(productId);
 			cartItem.setQuantity(1);
 			cartItem.setProductTitle(product.getTitle());
 			cartItem.setPrice(product.getPrice());
-			cartItem.setProductId(productId);
-			return cartDao.addToCart(cartItem);
+			cartItem.setProductId(product);
+			cart.setTotalPrice(cart.getTotalPrice()+product.getPrice());
+			return cartDao.addToCart(cartItem,cart);
 		}	
 	}
 	
+	public Object removeFromCartService(String productId,User user) {
+		Product product = (Product) productService.getProductService(productId);
+		Cart cart = (Cart) getCartService(user.getCartId());
+		List list = (List) cartDao.getCartItemByAllIds(productId, user.getCartId());
+		if(list.size()>0) {
+			CartItems cartItem = (CartItems) list.get(0);
+			if(cartItem.getQuantity()>1) {
+			cartItem.setPrice(cartItem.getPrice()-product.getPrice());
+			cartItem.setQuantity(cartItem.getQuantity()-1);
+			cart.setTotalPrice(cart.getTotalPrice()-product.getPrice());
+			return cartDao.addToCart(cartItem, cart);
+			}
+			else {
+				cart.setTotalPrice(cart.getTotalPrice()-product.getPrice());
+				return cartDao.deleteItemFromCart(cartItem, cart);
+			}
+		}
+		else {
+			return null;
+		}
+	}
+	
 	public Object getCartProductsService(User user) {
-		return cartDao.getCartItemsByCartIdAndUserId(user.getId(),user.getCartId());
+		return cartDao.getCartItemsByCartIdAndUserId(user.getCartId());
 	}
 }

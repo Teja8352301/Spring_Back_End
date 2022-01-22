@@ -1,5 +1,8 @@
 package com.teja.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,8 +25,12 @@ public class CartItems {
 	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+	@GeneratedValue(generator = "UUID")
+	 @GenericGenerator(
+		        name = "UUID",
+		        strategy = "org.hibernate.id.UUIDGenerator"
+		    )
+	String id;
 	
 	@Column(name="productTitle")
 	String productTitle;
@@ -31,25 +41,37 @@ public class CartItems {
 	@Column(name="price")
 	int price;
 	
-	@Column(name="productId")
-	String productId;
+	@ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.MERGE})
+	@JoinColumn(name="productId")
+	Product productId;
 	
-	
-	@Column(name="userId")
-	String userId;
-	
-	@Column(name="cartId")
-	String cartId;
+	@ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.MERGE})
+	@JoinColumn(name="cartId")
+	Cart cartId;
 
 	public CartItems() {
 		super();
 	}
+	
+	
 
-	public int getId() {
+	public Product getProductId() {
+		return productId;
+	}
+
+
+
+	public void setProductId(Product productId) {
+		this.productId = productId;
+	}
+
+
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -77,28 +99,11 @@ public class CartItems {
 		this.price = price;
 	}
 
-	public String getProductId() {
-		return productId;
-	}
-
-	public void setProductId(String productId) {
-		this.productId = productId;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getCartId() {
+	public Cart getCartId() {
 		return cartId;
 	}
 
-	public void setCartId(String cartId) {
+	public void setCartId(Cart cartId) {
 		this.cartId = cartId;
 	}
-	
 }

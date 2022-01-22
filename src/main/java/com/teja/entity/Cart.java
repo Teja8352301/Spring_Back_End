@@ -1,5 +1,6 @@
 package com.teja.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -38,19 +40,19 @@ public class Cart {
 	@JoinColumn(name="userId")
 	User userId;
 	
-//	@ManyToMany
-//	@JoinTable(name="cartitems",
-//	joinColumns=@JoinColumn(name="cartId"),
-//	inverseJoinColumns= {@JoinColumn(name="userId"),@JoinColumn(name="productId")})
-//	List<Product> products;
 	
+	@OneToMany(mappedBy="cartId",cascade= {CascadeType.ALL})
+	List<CartItems> cartItems;	
 
-//	public List<Product> getProducts() {
-//		return products;
+//	public List<CartItems> getCartItems() {
+//		return cartItems;
 //	}
 //
-//	public void setProducts(List<Product> products) {
-//		this.products = products;
+//	public void setCartItems(CartItems cartItem) {
+//		if(this.cartItems == null) {
+//			this.cartItems = new ArrayList<CartItems>();
+//		}
+//		this.cartItems.add(cartItem);
 //	}
 
 	public Cart(int i) {

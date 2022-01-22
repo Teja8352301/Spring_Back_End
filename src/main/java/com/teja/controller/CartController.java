@@ -2,6 +2,7 @@ package com.teja.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -54,7 +55,6 @@ public class CartController {
 	
 	@PostMapping("/addToCart")
 	public Object addToCart(@RequestBody CartProduct product,@RequestAttribute User userAuth) {
-		System.out.println(product);
 		return cartService.addToCartService(product.getProductId(), userAuth);
 	}
 	
@@ -62,6 +62,11 @@ public class CartController {
 	public Object getCartProducts(@RequestAttribute User userAuth) throws InterruptedException {
 		Thread.sleep(3000);
 		return cartService.getCartProductsService(userAuth);
+	}
+	
+	@DeleteMapping("/deleteFromCart")
+	public Object deleteFromCart(@RequestBody CartProduct product,@RequestAttribute User userAuth) {
+		return cartService.removeFromCartService(product.getProductId(), userAuth);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.teja.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -35,6 +37,17 @@ public class Product {
 	@Column(name="title")
 	String title = "";
 	
+//	public List<CartItems> getCartItems() {
+//		return cartItems;
+//	}
+//
+//	public void setCartItems(CartItems cartItem) {
+//		if(this.cartItems == null) {
+//			this.cartItems = new ArrayList<CartItems>();
+//		}
+//		this.cartItems.add(cartItem);
+//	}
+
 	@Column(name="imageUrl")
 	String imageUrl = "";
 	
@@ -48,20 +61,8 @@ public class Product {
 	@JoinColumn(name="userId")
 	User userId;
 	
-//	@ManyToMany
-//	@JoinTable(name="cartitems",
-//	joinColumns=@JoinColumn(name="productId"),
-//	inverseJoinColumns= {@JoinColumn(name="userId"),@JoinColumn(name="cartId")})
-//	List<Cart> cart;
-	
-
-//	public List<Cart> getCart() {
-//		return cart;
-//	}
-//
-//	public void setCart(List<Cart> cart) {
-//		this.cart = cart;
-//	}
+	@OneToMany(mappedBy="productId",cascade= {CascadeType.ALL})
+	List<CartItems> cartItems;
 
 	//	Constructors
 	public Product( String title, String imageUrl, int price, String description) {

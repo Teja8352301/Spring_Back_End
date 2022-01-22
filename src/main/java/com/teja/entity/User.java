@@ -45,7 +45,18 @@ public class User {
 	@OneToMany(mappedBy="userId",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	List<Product> products;
 	
-	@OneToOne(cascade= {CascadeType.ALL},mappedBy="userId")
+	@OneToMany(mappedBy="userId")
+	List<Orders> orders;
+	
+	public List<Orders> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
+	}
+
+	@OneToOne(mappedBy="userId")
 	Cart cartId;
 
 	public User(String id, String email, String password) {
