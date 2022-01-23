@@ -83,4 +83,8 @@ public class CartService {
 	public Object getCartProductsService(User user) {
 		return cartDao.getCartItemsByCartIdAndUserId(user.getCartId());
 	}
+	
+	public void clearCartItemsAndOrder(List<CartItems> cartItemsList,Cart cart) {
+		cartDao.clearCartItemsAndCart(cartItemsList, cart);
+	}
 }

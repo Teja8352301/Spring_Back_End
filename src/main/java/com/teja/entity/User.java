@@ -1,5 +1,6 @@
 package com.teja.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -43,17 +44,17 @@ public class User {
 	String password;
 	
 	@OneToMany(mappedBy="userId",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	List<Product> products;
-	
-	@OneToMany(mappedBy="userId")
 	List<Orders> orders;
 	
 	public List<Orders> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<Orders> orders) {
-		this.orders = orders;
+	public void setOrders(Orders order) {
+		if(this.orders == null) {
+			this.orders = new ArrayList<Orders>();
+		}
+		this.orders.add(order);
 	}
 
 	@OneToOne(mappedBy="userId")
@@ -97,14 +98,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
 	}
 
 	public String getCartId() {

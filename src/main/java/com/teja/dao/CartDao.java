@@ -69,4 +69,14 @@ public class CartDao {
 		return this.getCartItemsByCartIdAndUserId(cart.getCartId());
 	}
 	
+	@Transactional
+	public void clearCartItemsAndCart(List<CartItems> cartItemsList,Cart cart) {
+		Session session = factory.getCurrentSession();
+		cart.setTotalPrice(0);
+		session.saveOrUpdate(cart);
+		for(CartItems cartItem:cartItemsList) {
+			session.delete(cartItem);
+		}
+	}
+	
 }

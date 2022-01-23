@@ -57,10 +57,6 @@ public class Product {
 	@Column(name="description")
 	String description = "";
 	
-	@ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.DETACH,CascadeType.PERSIST},fetch= FetchType.LAZY)
-	@JoinColumn(name="userId")
-	User userId;
-	
 	@OneToMany(mappedBy="productId",cascade= {CascadeType.ALL})
 	List<CartItems> cartItems;
 
@@ -123,14 +119,6 @@ public class Product {
 	public String toString() {
 		return "Products [id=" + id + ", title=" + title + ", imageUrl=" + imageUrl + ", price=" + price
 				+ ", description=" + description + "]";
-	}
-
-	public String getUserId() {
-		return userId.getId();
-	}
-
-	public void setUserId(User userId) {
-		this.userId = userId;
 	}
 	
 }

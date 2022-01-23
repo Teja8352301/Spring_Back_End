@@ -36,7 +36,6 @@ public class ProductsController {
 	@PostMapping(value="/addProduct")
 	public  Object addProduct(@RequestBody Product product,@RequestAttribute User userAuth) throws InterruptedException {
 		Thread.sleep(3000);
-		product.setUserId(userAuth);
 		return productService.addProductService(product);
 	}
 	

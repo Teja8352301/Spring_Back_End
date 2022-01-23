@@ -31,6 +31,15 @@ public class Orders {
 	@JoinColumn(name="userId")
 	User userId;
 
+	public Orders() {
+		super();
+	}
+
+	public Orders(User userId) {
+		super();
+		this.userId = userId;
+	}
+
 	public String getOrderId() {
 		return orderId;
 	}
@@ -39,8 +48,8 @@ public class Orders {
 		this.orderId = orderId;
 	}
 
-	public User getUserId() {
-		return userId;
+	public String getUserId() {
+		return userId.getId();
 	}
 
 	public void setUserId(User userId) {
