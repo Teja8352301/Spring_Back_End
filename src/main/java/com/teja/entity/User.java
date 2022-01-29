@@ -25,7 +25,7 @@ public class User {
 	@Column(name="id")
 	@Id
 	@GeneratedValue(generator = "UUID")
-	 @GenericGenerator(
+	@GenericGenerator(
 		        name = "UUID",
 		        strategy = "org.hibernate.id.UUIDGenerator"
 		    )

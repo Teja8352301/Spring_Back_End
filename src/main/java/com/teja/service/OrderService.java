@@ -1,9 +1,13 @@
 package com.teja.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Service;
 
 import com.teja.dao.OrderDao;
@@ -12,6 +16,7 @@ import com.teja.entity.CartItems;
 import com.teja.entity.OrderItems;
 import com.teja.entity.Orders;
 import com.teja.entity.User;
+import com.teja.utils.HttpHeadersList;
 
 @Service
 public class OrderService {
@@ -22,7 +27,7 @@ public class OrderService {
 	@Autowired
 	CartService cartService;
 
-	public void orderNowService(User user) {
+	public Object orderNowService(User user) {
 		Orders order=new Orders(user);
 		List<CartItems> cartItems = (List<CartItems>) cartService.getCartProductsService(user);
 //		user.setOrders(order);
@@ -33,7 +38,7 @@ public class OrderService {
 		}
 		Cart cart = (Cart) cartService.getCartService(user.getCartId());
 		cartService.clearCartItemsAndOrder(cartItems,cart);
-		orderDao.addOrder(orderItemsList, order,user);
+		return orderDao.addOrder(orderItemsList, order,user);
 	}
 	
 	public Object getOrdersService(User user) {

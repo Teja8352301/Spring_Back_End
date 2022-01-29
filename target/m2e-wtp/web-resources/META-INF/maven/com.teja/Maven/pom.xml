@@ -16,6 +16,22 @@
 
   <dependencies>
 
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20210307</version>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+			<dependency>
+			    <groupId>com.google.code.gson</groupId>
+			    <artifactId>gson</artifactId>
+			    <version>2.8.9</version>
+			</dependency>
+
+
 
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
 			<dependency>
@@ -36,6 +52,24 @@
 		    <groupId>com.mchange</groupId>
 		    <artifactId>c3p0</artifactId>
 		    <version>0.9.5.5</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-api</artifactId>
+		    <version>0.11.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-impl</artifactId>
+		    <version>0.11.1</version>
+		    <scope>runtime</scope>
+		</dependency>
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-jackson</artifactId>
+		    <version>0.11.1</version>
+		    <scope>runtime</scope>
 		</dependency>
 
 
@@ -89,9 +123,22 @@
 	    <version>5.3.13</version>
 	</dependency>
 
-	
+
 	<dependency>
-	    <groupId>org.springframework</groupId>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-config</artifactId>
+		<version>${org.springframework.version}</version>
+	</dependency>
+
+<!-- Spring Security Web -->
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-web</artifactId>
+		<version>${org.springframework.version}</version>
+	</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
 	    <artifactId>spring-orm</artifactId>
 	    <version>${org.springframework.version}</version>
 	</dependency>

@@ -1,6 +1,8 @@
 package com.teja.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -8,9 +10,12 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Repository;
 
 import com.teja.entity.Product;
+import com.teja.utils.HttpHeadersList;
 
 @Repository
 public class ProductDao {
@@ -37,7 +42,7 @@ public class ProductDao {
 		Session session = factory.getCurrentSession();
 		Product product = session.get(Product.class, id);
 		session.delete(product);
-		return null;
+		return product;
 	}
 	
 	@Transactional

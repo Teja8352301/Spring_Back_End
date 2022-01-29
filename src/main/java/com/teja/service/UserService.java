@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.teja.dao.UserDao;
 import com.teja.entity.User;
+import com.teja.utils.HttpHeadersList;
 
 @Service
 public class UserService {
@@ -12,10 +13,10 @@ public class UserService {
 	@Autowired
 	UserDao userDao;
 	
-	public Object createUser(User user) {
+	
+	public Object createUser(User user,HttpHeadersList headerMapList) {
 //		User user = new User();
-		Object userObject = userDao.createUser(user);
-		return userObject;
+		return userDao.createUser(user,headerMapList);
 	}
 	
 	public Object getUserByEmailId(String email) {
@@ -30,5 +31,9 @@ public class UserService {
 	
 	public Object deleteUserById(String id) {
 	return userDao.deleteUser(id);	
+	}
+	
+	public Object validateUserService(User user,HttpHeadersList headerMapList) {
+		return userDao.validateUserDao(user,headerMapList);
 	}
 }

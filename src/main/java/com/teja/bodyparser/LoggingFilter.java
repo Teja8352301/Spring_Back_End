@@ -12,18 +12,25 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 
 @WebFilter(urlPatterns="/")
 public class LoggingFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    	
-
+	        	
         try {
-            request.setAttribute("activeUserId", "56eec8fb-275c-4079-ab77-81c7dddb3e3f");
-        	chain.doFilter(request, response);
+            HttpServletRequest httpRequest = (HttpServletRequest)request;
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+            httpResponse.setHeader("Access-Control-Allow-Origin", "*");
+            httpResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
+            httpResponse.setHeader("Access-Control-Allow-Headers", "Origin,Content-Type,Accept,*");
+            httpResponse.setHeader("Access-Control-Max-Age", "3600");
+            httpResponse.setHeader("Access-Control-Expose-Headers", "*");
+        	chain.doFilter(request, httpResponse);
         } 
         catch(Exception e) {
         	System.out.println(e);

@@ -16,25 +16,21 @@ import com.teja.entity.Product;
 import com.teja.error.ErrorThrow;
 import com.teja.service.UserService;
 
-@ControllerAdvice
+@Component
+@Aspect
 public class ProductAop {
 	
 	@Autowired
 	UserService userService;
 	
-	@ExceptionHandler
-	public ResponseEntity<Object> exceptionsHandling(ErrorThrow err){
-		return new ResponseEntity(err.getMessage(),HttpStatus.ALREADY_REPORTED);
-	}
-	
 	@Pointcut("execution(public * com.teja.controller.ProductsController.getProducts(..))")
 	public void pointCutForGetDemo() {}
 	
-//	@Before("pointCutForGetDemo()")
-//	public void beforeDemo(JoinPoint joinPoint) {
-//		System.out.println("Executing Before Demo Method================ " + joinPoint.getSignature());
-////		System.out.println(userService.getUserByIndex());
-//	}
+	@Before("pointCutForGetDemo()")
+	public void beforeDemo(JoinPoint joinPoint) {
+		System.out.println("Executing Before Demo Method================ " + joinPoint.getSignature());
+//		System.out.println(userService.getUserByIndex());
+	}
 	
 //	@AfterReturning(pointcut="pointCutForGetDemo()",returning="response")
 //	public void afterDemo(JoinPoint joinPoint,Object response) {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.teja.dao.ProductDao;
 import com.teja.entity.Product;
+import com.teja.utils.HttpHeadersList;
 
 
 @Service
@@ -30,7 +31,7 @@ public class ProductService {
 	}
 	
 	public Object deleteProductService(String id) {
-		Product deletedproduct = (Product)productDao.deleteProduct(id);
-		return null;
+		return (Product)productDao.deleteProduct(id);
+		
 	}
 }
