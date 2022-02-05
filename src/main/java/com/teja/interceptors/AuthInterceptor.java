@@ -21,6 +21,7 @@ import com.teja.error.ErrorThrow;
 import com.teja.service.UserService;
 import com.teja.utils.HttpHeadersList;
 import com.teja.utils.JwtGenerator;
+import com.teja.utils.SendMail;
 
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter {
